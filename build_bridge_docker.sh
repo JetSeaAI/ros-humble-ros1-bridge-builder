@@ -4,4 +4,4 @@ TAG="x86-cpu"
 IMG="${REPOSITORY}:${TAG}"
 
 
- docker build . --build-arg ADD_ros_tutorials=0 - -t ${IMG}
+ docker build . --build-arg ADD_ros_tutorials=0 -t ${IMG}

@@ -27,7 +27,7 @@ We build without ros-tutorals.
 x86:
 
 ```bash
-  docker build . --build-arg ADD_ros_tutorials=0 - -t jetseaai/ros-humble-ros1-bridge-builder:x86-cpu
+  docker build . --build-arg ADD_ros_tutorials=0 -t jetseaai/ros-humble-ros1-bridge-builder:x86-cpu
 ```
 
 Or using build script:
