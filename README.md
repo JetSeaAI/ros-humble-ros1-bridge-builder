@@ -8,14 +8,6 @@ ROS2-ROS1-Bridge Guide
 git clone git@github.com:JetSeaAI/ros-humble-ros1-bridge-builder.git
 ```
 
-## Update repo and submodules
-
-```bash
-git pull
-git submodule sync --recursive
-git submodule update --init --recursive
-```
-
 ## Enter the repo
 
 ```bash
@@ -57,11 +49,21 @@ Alternative builds:
 
 ## Create the package
 
-0.) Start from the latest Ubuntu 22.04 (Jammy) ROS 2 Humble Desktop system, create the "ros-humble-ros1-bridge/" ROS2 package:
+Start from the latest Ubuntu 22.04 (Jammy) ROS 2 Humble Desktop system, create the "ros-humble-ros1-bridge/" ROS2 package:
 
 ``` bash
-    docker run --rm ros-humble-ros1-bridge-builder | tar xvzf -
+    docker run --rm jetseaai/ros-humble-ros1-bridge-builder:x86-cpu | tar xvzf -
 ```
+
+Or using build script:
+
+x86:
+
+```bash
+    source build_bridge_package.sh
+```
+
+Pending testing on ARM architecture....
 
 - Note1: It's **important** that you have **`ros-humble-desktop`** installed on your ROS2 Humble system because we want to **match it with the builder image as closely as possible**.
 
@@ -79,136 +81,14 @@ Otherwise you may get an error about missing `ibexample_interfaces__rosidl_types
 
 ## Usage
 
-### Terminal 1: ROSCORE
-
-1. Docker Run
-
-Run this script to pull docker image to your workstation.
+On Ubuntu 22.04 (Jammy) ROS 2 Humble Desktop system, and replace the [IP] to your ROS1 Master IP.
 
 ```bash
-source Docker/jetson-orin/run.sh
+    source enviroment_ros2_ros1_bridge.sh [IP]
 ```
 
-2. Source ROS1 Environment
+and run dynamic_bridge to bridge all topics.
 
 ```bash
-source environment_ros1.sh
+    source bridge.sh
 ```
-
-3. Roscore
-
-```bash
-roscore
-```
-### Terminal 2: ROS1 & ROS2 BRIDGE
-
-1. Docker Run
-
-```bash
-source Docker/jetson-orin/run.sh
-```
-
-2. Source ROS1 & ROS2 Environment
-
-```bash
-source environment_ros2_ros1_bridge.sh
-```
-
-3. Run Ros1_bridge
-
-```bash
-ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
-```
-
-### Download bags
-
-Please download bags folder and put in the root path of the repo: [Link](http://gofile.me/773h8/WtbSM5xSh) 
-
-### Terminal 3: ROS1
-
-1. Docker Run
-
-```bash
-source Docker/jetson-orin/run.sh
-```
-
-2. Source ROS1 Environment
-
-```bash
-source environment_ros1.sh
-```
-
-3. Run ROS1 package
-
-Image Bag
-```bash
-cd bags/images-2024-11-23-15-28-41/
-rosbag play 2024-11-23-15-28-41.bag 
-```
-
-Pose & Layser Bag
-```bash
-cd bags/1123_1528/
-rosbag play 2024-11-23-15-28-44_0.bag 
-```
-
-### Terminal 4: ROS2
-
-1. Docker Run
-
-```bash
-source Docker/jetson-orin/run.sh
-```
-
-2. Source ROS2 Environment
-
-```bash
-source environment_ros2.sh
-```
-
-3. Run ROS2 Bag Example
-
-Radar Bag
-```bash
-cd bags/recorded_rosbag_halo_20241123-141728/
-ros2 bag play recorded_rosbag_halo_20241123-141728_0.db3
-```
-
-### Terminal 5
-1. Docker Run
-
-```bash
-source Docker/jetson-orin/run.sh
-```
-
-2. Source ROS1 Environment
-
-```bash
-source environment_ros1.sh
-```
-
-3. Rviz
-
-```bash
-rviz -d rviz/radar-example.rviz
-```
-
-### Terminal 6
-1. Docker Run
-
-```bash
-source Docker/jetson-orin/run.sh
-```
-
-2. Source ROS2 Environment
-
-```bash
-source environment_ros2.sh
-```
-
-3. Rviz2
-
-```bash
-rviz2 -d rviz2/lidar-camera-example.rviz
-```
-
