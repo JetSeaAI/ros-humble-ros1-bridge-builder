@@ -1,1 +1,0 @@
-docker pull argnctu/ros-humble-ros1-bridge-builder:jetson-orin

@@ -2,11 +2,11 @@
 
 ROS2-ROS1-Bridge Guide
 
-## Clone repo 
+## Clone repo
 
+```bash
+git clone git@github.com:JetSeaAI/ros-humble-ros1-bridge-builder.git
 ```
-git clone git@github.com:ARG-NCTU/ros-humble-ros1-bridge-builder.git
-``` 
 
 ## Update repo and submodules
 
@@ -22,24 +22,59 @@ git submodule update --init --recursive
 cd ros-humble-ros1-bridge-builder
 ```
 
-## Set up Environment
+## Build the docker
 
-1. Enter Docker Enviroment
+We build without ros-tutorals.
 
-1.1. Docker Run
-
-Run this script to pull docker image to your workstation.
+x86:
 
 ```bash
-source Docker/jetson-orin/run.sh
+  docker build . --build-arg ADD_ros_tutorials=0 - -t jetseaai/ros-humble-ros1-bridge-builder:x86-cpu
 ```
 
-1.2. Docker Join
-
-If want to enter same docker image, type below command.
+Or using build script:
 
 ```bash
-source Docker/jetson-orin/run.sh
+source build_bridge_docker.sh
+```
+
+Pending testing on ARM architecture....
+
+Alternative builds:
+
+``` bash
+  # **[OPTIONAL]** If you want to build ros-tutorals support:
+  docker build . --build-arg ADD_ros_tutorials=1 -t ros-humble-ros1-bridge-builder
+
+  # **[OPTIONAL]** If you want to build grid-map support:  (bridging the ros-humble-grid-map package)
+  docker build . --build-arg ADD_grid_map=1 -t ros-humble-ros1-bridge-builder
+
+  # **[OPTIONAL]** If you want to build an example custom message:
+  docker build . --build-arg ADD_example_custom_msgs=1 -t ros-humble-ros1-bridge-builder
+```
+
+- Note1: Don't forget to install the necessary `ros-humble-grid-map` packages on your ROS2 Humble if you choose to build the bridge with the `grid-map` support added.
+
+## Create the package
+
+0.) Start from the latest Ubuntu 22.04 (Jammy) ROS 2 Humble Desktop system, create the "ros-humble-ros1-bridge/" ROS2 package:
+
+``` bash
+    docker run --rm ros-humble-ros1-bridge-builder | tar xvzf -
+```
+
+- Note1: It's **important** that you have **`ros-humble-desktop`** installed on your ROS2 Humble system because we want to **match it with the builder image as closely as possible**.
+
+Otherwise you may get an error about missing `ibexample_interfaces__rosidl_typesupport_cpp.so`.  See issue https://github.com/TommyChangUMD/ros-humble-ros1-bridge-builder/issues/10
+
+- Note1: There is no compilation at this point, the `docker run` command simply spits out a pre-compiled tarball for either amd64 or arm64 architecture, depending on the architecture of the machine you used to created the builder image.
+
+- Note2: The assumption is that this tarball contains configurations and libraries matching your ROS2 Humble system very closely, although not identical.
+
+- Note3: We don't really need the builder image anymore, to delete it, do:
+
+``` bash
+    docker rmi ros-humble-ros1-bridge-builder
 ```
 
 ## Usage
