@@ -33,7 +33,7 @@ x86:
 Or using build script:
 
 ```bash
-source build_bridge_docker.sh
+source build_bridge_docker_builder.sh
 ```
 
 Pending testing on ARM architecture....
