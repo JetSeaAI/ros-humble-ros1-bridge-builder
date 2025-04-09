@@ -1,0 +1,3 @@
+[submodule "js-docker"]
+	path = js-docker
+	url = git@github.com:JetSeaAI/js-docker.git
