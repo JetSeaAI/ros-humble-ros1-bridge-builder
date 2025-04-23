@@ -11,7 +11,7 @@ USER_NAME="arg"
 REPO_NAME="ros-humble-ros1-bridge-builder"
 CONTAINER_NAME="ros2-bridge-cpu"
 
-CONTAINER_ID=$(docker ps -aqf "ancestor=${IMG}")
+CONTAINER_ID=$(docker ps -qf "name=${CONTAINER_NAME}")
 if [ $CONTAINER_ID ]; then
   echo "Attach to docker container $CONTAINER_ID"
   xhost +
@@ -61,7 +61,3 @@ docker run \
   --privileged \
   --security-opt seccomp=unconfined \
   "${IMG}" \
-
-  # -v "/home/${USER}/${REPO_NAME}/launch:/home/${USER_NAME}/${REPO_NAME}"/launch \
-  # -v "/home/${USER}/${REPO_NAME}/share:/home/${USER_NAME}/${REPO_NAME}"/share \
-# -e "TERM=xterm-256color" \
