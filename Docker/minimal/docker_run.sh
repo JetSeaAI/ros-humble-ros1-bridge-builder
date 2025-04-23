@@ -48,8 +48,8 @@ docker run \
   -e REPO_NAME=$REPO_NAME \
   -e HOME=/home/${USER_NAME} \
   -e OPENAI_API_KEY=$OPENAI_API_KEY\
+  -v "$HOME/${REPO_NAME}:/home/${USER_NAME}/${REPO_NAME}" \
   -v "$XAUTH:$XAUTH" \
-  -v "/home/${USER}/${REPO_NAME}:/home/${USER_NAME}/${REPO_NAME}" \
   -v "/tmp/.X11-unix:/tmp/.X11-unix" \
   -v "/etc/localtime:/etc/localtime:ro" \
   -v "/dev:/dev" \

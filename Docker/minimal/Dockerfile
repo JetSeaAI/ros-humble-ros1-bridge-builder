@@ -73,6 +73,7 @@ RUN rm -rf /var/lib/apt/lists/*
 # Set up the workspace
 WORKDIR /home/${NB_USER}
 # COPY js-perceptions /home/${NB_USER}/js-perceptions
+COPY ros-humble-ros1-bridge /home/${NB_USER}/ros-humble-ros1-bridge
 
 #Add vpn configuration
 # ADD js-/cyclonedds.xml /home/${NB_USER}/cyclonedds.xml
