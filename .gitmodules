@@ -1,3 +1,6 @@
-[submodule "js-docker"]
-	path = js-docker
+[submodule "zenoh-config"]
+	path = zenoh-config
+	url = git@github.com:JetSeaAI/zenoh-config.git
+[submodule "Docker/js-docker"]
+	path = Docker/js-docker
 	url = git@github.com:JetSeaAI/js-docker.git
